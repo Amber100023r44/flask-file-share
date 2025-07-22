@@ -3,21 +3,13 @@ import os, time, threading
 
 app = Flask(__name__)
 UPLOAD_FOLDER = 'uploads'
-EXPIRY_SECONDS = 2 * 60 * 60  # 2 hours
+EXPIRY_SECONDS = 2 * 60 * 60
 
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 @app.route('/')
 def home():
     return render_template('index.html')
-    <h2>Upload a Video</h2>
-    <form method="POST" action="/upload" enctype="multipart/form-data">
-        <input type="file" name="file" accept="video/*" required>
-        <button type="submit">Upload</button>
-    </form>
-    <br>
-    <a href="/files">🔽 Download Files</a>
-    '''
 
 @app.route('/upload', methods=['POST'])
 def upload():
@@ -25,16 +17,14 @@ def upload():
     if file:
         path = os.path.join(UPLOAD_FOLDER, file.filename)
         file.save(path)
-        return f'✅ {file.filename} uploaded! <a href="/">Upload more</a>'
-    return '❌ Upload failed.'
+        return f'{file.filename} uploaded successfully! <a href="/">Upload more</a>'
+    return 'Upload failed.'
 
 @app.route('/files')
 def list_files():
     clean_expired_files()
     files = os.listdir(UPLOAD_FOLDER)
-    return '<h2>Available Files</h2>' + '<br>'.join(
-        [f'<a href="/download/{f}">{f}</a>' for f in files]
-    )
+    return '<br>'.join([f'<a href="/download/{f}">{f}</a>' for f in files])
 
 @app.route('/download/<filename>')
 def download(filename):
@@ -43,19 +33,13 @@ def download(filename):
 def clean_expired_files():
     now = time.time()
     for fname in os.listdir(UPLOAD_FOLDER):
-        fpath = os.path.join(UPLOAD_FOLDER, fname)
-        if os.path.isfile(fpath):
-            if now - os.path.getmtime(fpath) > EXPIRY_SECONDS:
-                try:
-                    os.remove(fpath)
-                    print(f"Deleted expired file: {fname}")
-                except Exception as e:
-                    print(f"Error deleting {fname}: {e}")
+        path = os.path.join(UPLOAD_FOLDER, fname)
+        if os.path.isfile(path) and now - os.path.getmtime(path) > EXPIRY_SECONDS:
+            os.remove(path)
 
-# Run cleaner in background every 10 minutes
 def cleaner_thread():
     while True:
-        time.sleep(600)  # every 10 minutes
+        time.sleep(600)
         clean_expired_files()
 
 threading.Thread(target=cleaner_thread, daemon=True).start()
