@@ -1,0 +1,92 @@
+body {
+  margin: 0;
+  font-family: 'Orbitron', sans-serif;
+  background: linear-gradient(145deg, #0f0f0f, #1a1a1a);
+  color: #00ffe7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+.container {
+  text-align: center;
+  background: #111;
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 0 40px #00ffe7;
+  width: 90%;
+  max-width: 600px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.container:hover {
+  transform: scale(1.02);
+}
+
+h1 {
+  font-size: 2.5em;
+  margin-bottom: 20px;
+}
+
+form {
+  margin-bottom: 30px;
+}
+
+#dropArea {
+  display: block;
+  padding: 40px;
+  margin: 20px auto;
+  border: 2px dashed #00ffe7;
+  border-radius: 15px;
+  background: #1a1a1a;
+  color: #00ffe7;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.3s;
+}
+
+#dropArea.hover {
+  background: #222;
+  transform: scale(1.05);
+}
+
+button {
+  padding: 10px 25px;
+  border: none;
+  background: #00ffe7;
+  color: #000;
+  font-weight: bold;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+button:hover {
+  background: #00bfa6;
+}
+
+.file-list {
+  list-style: none;
+  padding: 0;
+}
+
+.file-list li {
+  margin: 10px 0;
+}
+
+.file-list a {
+  color: #00ffe7;
+  text-decoration: none;
+  font-size: 1.1em;
+}
+
+.file-list a:hover {
+  text-decoration: underline;
+}
+
+.back-link {
+  display: block;
+  margin-top: 20px;
+  color: #00ffe7;
+  text-decoration: none;
+}
