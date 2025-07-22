@@ -1,4 +1,4 @@
-from flask import Flask, request, send_from_directory
+from flask import Flask, request, send_from_directory, render_template
 import os, time, threading
 
 app = Flask(__name__)
@@ -9,7 +9,7 @@ os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 @app.route('/')
 def home():
-    return '''
+    return render_template('index.html')
     <h2>Upload a Video</h2>
     <form method="POST" action="/upload" enctype="multipart/form-data">
         <input type="file" name="file" accept="video/*" required>
