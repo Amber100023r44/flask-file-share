@@ -1,103 +1,37 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>StreamBin - Secure File Sharing</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>STREAMBIN | Secure File Sharing</title>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-  <div class="container">
-    <h1>StreamBin 🗑️</h1>
+  <div class="scanlines"></div>
 
-    <!-- Left Panel: Upload + Storage Info -->
-    <div class="left-panel">
-      <div class="stats">
-        <p><strong>Total Storage Used:</strong> {{ total_size }} MB</p>
-      </div>
+  <header>
+    <h1 class="logo">STREAMBIN<span class="glitch">_</span></h1>
+    <p class="tagline">Encrypted Upload Node</p>
+  </header>
 
-      <!-- Upload Form -->
-      <form class="upload-box" action="/upload" method="post" enctype="multipart/form-data">
-        <label class="label-upload" for="file">📁 Drop or Choose Files</label>
-        <input type="file" name="file" id="file" onchange="this.form.submit();">
+  <main class="main-grid">
+    <!-- Left: Upload -->
+    <section class="upload-box">
+      <h2>Upload a File</h2>
+      <form method="POST" action="/" enctype="multipart/form-data">
+        <input type="file" name="file" required>
+        <button type="submit">UPLOAD</button>
       </form>
-    </div>
+    </section>
 
-    <!-- Right Panel: Internet Speed Dial -->
-    <div class="right-panel">
-      <div class="dial-container">
-        <canvas id="speedometer" width="300" height="150"></canvas>
-        <p id="speed-text" class="dial-label">Checking speed...</p>
-      </div>
-    </div>
-
-    <!-- Full Width: Uploaded Files -->
-    <div class="files-section">
-      <h2>📂 Uploaded Files</h2>
-      {% if files %}
-        <ul>
-          {% for file in files %}
-            <li><a href="{{ url_for('uploaded_file', filename=file) }}" download>{{ file }}</a></li>
-          {% endfor %}
-        </ul>
-      {% else %}
-        <p>No files uploaded yet.</p>
-      {% endif %}
-    </div>
-  </div>
-
-  <!-- Chart.js -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-  <script>
-    let speedChart;
-
-    async function measureSpeed() {
-      const startTime = performance.now();
-      const response = await fetch("https://via.placeholder.com/1000x1000.png");
-      const blob = await response.blob();
-      const endTime = performance.now();
-
-      const bits = blob.size * 8;
-      const duration = (endTime - startTime) / 1000;
-      const mbps = (bits / duration) / (1024 * 1024);
-
-      updateDial(mbps);
-      document.getElementById("speed-text").textContent = `Current Speed: ${mbps.toFixed(2)} Mbps`;
-    }
-
-    function updateDial(speed) {
-      const cappedSpeed = Math.min(speed, 100);
-      if (!speedChart) {
-        const ctx = document.getElementById('speedometer').getContext('2d');
-        speedChart = new Chart(ctx, {
-          type: 'doughnut',
-          data: {
-            labels: ['Speed'],
-            datasets: [{
-              data: [cappedSpeed, 100 - cappedSpeed],
-              backgroundColor: ['#00ffe7', '#333'],
-              borderWidth: 0
-            }]
-          },
-          options: {
-            rotation: -90,
-            circumference: 180,
-            cutout: '80%',
-            plugins: {
-              tooltip: { enabled: false },
-              legend: { display: false }
-            }
-          }
-        });
-      } else {
-        speedChart.data.datasets[0].data = [cappedSpeed, 100 - cappedSpeed];
-        speedChart.update();
-      }
-    }
-
-    setInterval(measureSpeed, 10000);
-    measureSpeed();
-  </script>
+    <!-- Right: Uploaded Files -->
+    <section class="uploaded-files">
+      <h2>Uploaded Files</h2>
+      <ul>
+        {% for file in files %}
+          <li><a href="{{ url_for('download', filename=file) }}" download>{{ file }}</a></li>
+        {% endfor %}
+      </ul>
+    </section>
+  </main>
 </body>
 </html>
