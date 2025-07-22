@@ -1,49 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <title>🛰️ SecureDrop</title>
+  <title>TechDrop - Secure File Sharing</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet">
 </head>
 <body>
   <div class="container">
-    <h1>🛰️ SecureDrop</h1>
-    <p>Drag and drop your files below, or click to upload.</p>
-    
-    <form id="uploadForm" action="/upload" method="post" enctype="multipart/form-data">
-      <input type="file" name="file" id="fileInput">
-      <label for="fileInput" id="dropArea">📂 Drop files here or click to upload</label>
-      <button type="submit">Upload</button>
+    <h1>TechDrop 🚀</h1>
+
+    <form class="upload-box" action="/upload" method="post" enctype="multipart/form-data">
+      <label class="label-upload" for="file">📁 Drop or Choose Files</label>
+      <input type="file" name="file" id="file" onchange="this.form.submit();">
     </form>
 
-    <div class="file-list-link">
-      <a href="/files">🔽 View Uploaded Files</a>
-    </div>
+    <ul>
+      {% for file in files %}
+        <li><a href="{{ url_for('uploaded_file', filename=file) }}" download>{{ file }}</a></li>
+      {% else %}
+        <li>No files uploaded yet.</li>
+      {% endfor %}
+    </ul>
   </div>
-
-  <script>
-    const dropArea = document.getElementById('dropArea');
-    const fileInput = document.getElementById('fileInput');
-
-    dropArea.addEventListener('dragover', (e) => {
-      e.preventDefault();
-      dropArea.classList.add('hover');
-    });
-
-    dropArea.addEventListener('dragleave', () => {
-      dropArea.classList.remove('hover');
-    });
-
-    dropArea.addEventListener('drop', (e) => {
-      e.preventDefault();
-      fileInput.files = e.dataTransfer.files;
-      dropArea.classList.remove('hover');
-    });
-
-    dropArea.addEventListener('click', () => {
-      fileInput.click();
-    });
-  </script>
 </body>
 </html>
