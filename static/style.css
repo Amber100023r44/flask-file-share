@@ -9,11 +9,11 @@ body {
   background-color: #0a0f0d;
   font-family: 'Courier New', Courier, monospace;
   color: #00ff88;
+  min-height: 100vh;
   display: flex;
   justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  padding: 20px;
+  align-items: flex-start;
+  padding: 40px;
 }
 
 /* Container */
@@ -23,21 +23,40 @@ body {
   border: 1px solid #00ff88;
   border-radius: 12px;
   box-shadow: 0 0 20px #00ff88aa;
-  width: 90%;
-  max-width: 700px;
-  text-align: center;
+  width: 100%;
+  max-width: 1000px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+}
+
+/* Left and Right Sections */
+.left-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.right-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
 }
 
 /* Title */
 h1 {
   font-size: 2rem;
-  margin-bottom: 20px;
   text-shadow: 0 0 10px #00ff88;
+  margin-bottom: 10px;
+  grid-column: span 2;
+  text-align: center;
 }
 
 /* Upload Form */
 form {
-  margin-bottom: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 
 input[type="file"] {
@@ -45,7 +64,6 @@ input[type="file"] {
   padding: 10px;
   background-color: #000;
   color: #00ff88;
-  margin-bottom: 15px;
   width: 100%;
 }
 
@@ -56,6 +74,7 @@ button {
   padding: 10px 20px;
   font-weight: bold;
   cursor: pointer;
+  width: fit-content;
   transition: 0.3s;
 }
 
@@ -66,9 +85,10 @@ button:hover {
 
 /* Stats */
 .stats {
-  margin-top: 20px;
-  font-size: 1.1rem;
-  text-align: left;
+  font-size: 1rem;
+  background-color: #0f0f0f;
+  padding: 15px;
+  border: 1px dashed #00ff88;
 }
 
 /* Dial and Progress */
@@ -76,7 +96,12 @@ button:hover {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 40px;
+}
+
+.speed-dial {
+  width: 150px;
+  height: 150px;
+  margin-top: 10px;
 }
 
 .dial-label {
@@ -84,15 +109,23 @@ button:hover {
   font-size: 1rem;
 }
 
-.speed-dial {
-  width: 150px;
-  height: 150px;
+/* File List Table */
+.files-section {
+  grid-column: span 2;
 }
 
-/* Table of Files */
+.files-section h2 {
+  margin-top: 20px;
+  margin-bottom: 10px;
+  font-size: 1.2rem;
+  color: #00ff88;
+  border-bottom: 1px solid #00ff88;
+  padding-bottom: 5px;
+}
+
 table {
   width: 100%;
-  margin-top: 30px;
+  margin-top: 10px;
   border-collapse: collapse;
   color: #00ff88;
 }
@@ -100,7 +133,7 @@ table {
 th, td {
   border: 1px solid #00ff88;
   padding: 8px;
-  text-align: center;
+  text-align: left;
 }
 
 th {
@@ -122,7 +155,7 @@ a:hover {
   color: #007755;
 }
 
-/* Smooth transitions */
+/* Smooth Transitions */
 button, input[type="file"], a {
   transition: all 0.3s ease;
 }
