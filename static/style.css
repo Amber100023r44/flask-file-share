@@ -1,4 +1,4 @@
-/* Reset & Base */
+/* Base Reset */
 * {
   margin: 0;
   padding: 0;
@@ -6,11 +6,10 @@
 }
 
 body {
-  height: 100vh;
-  width: 100vw;
-  background: linear-gradient(145deg, #0d0d0d, #1a1a1a);
-  color: #e0e0e0;
+  background: radial-gradient(ellipse at top, #101010 0%, #0a0a0a 100%);
+  color: #d0d0d0;
   font-family: 'Orbitron', sans-serif;
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -20,61 +19,60 @@ body {
 
 /* Container */
 .container {
-  text-align: center;
+  background: #111;
+  padding: 3rem 2.5rem;
+  border-radius: 16px;
+  box-shadow: 0 0 30px rgba(0, 255, 255, 0.05), 0 0 5px rgba(0, 255, 255, 0.08);
+  max-width: 580px;
   width: 100%;
-  max-width: 680px;
-  padding: 2rem;
-  background: #1a1a1a;
-  border: 1px solid #2c2c2c;
-  border-radius: 14px;
-  box-shadow: 0 0 30px rgba(0, 255, 231, 0.05);
+  text-align: center;
+  border: 1px solid #222;
 }
 
 /* Title */
 h1 {
-  font-size: 2.5rem;
+  font-size: 2.4rem;
+  color: #00e6d0;
   font-weight: 600;
-  color: #00ffe7;
-  margin-bottom: 1rem;
-  letter-spacing: 1px;
+  margin-bottom: 0.8rem;
 }
 
-/* Storage Info */
-p {
+/* Storage */
+.container > p {
+  color: #888;
   font-size: 1rem;
-  color: #bbb;
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
 }
 
 /* Upload Box */
 .upload-box {
-  border: 2px dashed #00ffe7;
-  border-radius: 10px;
+  background: #181818;
   padding: 2rem;
-  margin-bottom: 2rem;
-  background: #121212;
-  transition: background 0.3s ease, box-shadow 0.3s ease;
+  border-radius: 12px;
+  border: 1px solid #333;
+  transition: all 0.2s ease;
+  margin-bottom: 1.8rem;
 }
 
 .upload-box:hover {
-  background: #181818;
-  box-shadow: 0 0 10px rgba(0, 255, 231, 0.1);
+  background: #1e1e1e;
+  box-shadow: 0 0 12px rgba(0, 255, 255, 0.05);
 }
 
 .label-upload {
-  cursor: pointer;
-  font-size: 1rem;
-  color: #00ffe7;
-  font-weight: 500;
-  padding: 0.7rem 2rem;
-  border: 1px solid #00ffe7;
-  border-radius: 6px;
   display: inline-block;
-  transition: background 0.3s ease, color 0.3s ease;
+  color: #00ffd6;
+  padding: 0.75rem 1.8rem;
+  font-size: 0.95rem;
+  border: 1px solid #00ffd6;
+  border-radius: 8px;
+  cursor: pointer;
+  background: transparent;
+  transition: all 0.25s ease;
 }
 
 .label-upload:hover {
-  background: #00ffe7;
+  background-color: #00ffd6;
   color: #000;
 }
 
@@ -85,54 +83,59 @@ input[type="file"] {
 /* File List */
 ul {
   list-style: none;
+  margin-top: 1rem;
   padding: 0;
-  margin-top: 1.5rem;
 }
 
 li {
-  background: #222;
-  margin-bottom: 0.75rem;
-  padding: 0.85rem 1rem;
-  border-radius: 6px;
-  transition: background 0.3s ease;
+  background: #1b1b1b;
+  padding: 0.75rem 1rem;
+  margin-bottom: 0.6rem;
+  border-radius: 8px;
   text-align: left;
+  font-size: 0.95rem;
+  border: 1px solid #2c2c2c;
+  transition: all 0.2s ease;
 }
 
 li:hover {
-  background: #2a2a2a;
+  background-color: #222;
 }
 
 a {
-  color: #00ffe7;
+  color: #00ffc8;
   text-decoration: none;
   font-weight: 500;
   word-break: break-word;
 }
 
-/* Speedometer Section */
+/* Speed Text & Dial */
 #speedometer {
   display: block;
-  margin: 0 auto;
+  margin: 2rem auto 0.5rem;
 }
 
 #speed-text {
-  margin-top: 0.75rem;
   font-size: 1rem;
-  color: #00ffe7;
+  color: #00ffc8;
 }
 
 /* Responsive */
-@media (max-width: 480px) {
+@media (max-width: 500px) {
+  .container {
+    padding: 2rem 1.5rem;
+  }
+
   h1 {
     font-size: 2rem;
   }
 
   .label-upload {
-    font-size: 0.95rem;
-    padding: 0.6rem 1.5rem;
+    font-size: 0.9rem;
+    padding: 0.6rem 1.4rem;
   }
 
   li {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
   }
 }
