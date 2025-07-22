@@ -1,6 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
-
+/* Global Reset */
 * {
   margin: 0;
   padding: 0;
@@ -8,87 +6,123 @@
 }
 
 body {
-  background: #0d1117;
-  color: #e6edf3;
-  font-family: 'Inter', sans-serif;
-  height: 100vh;
+  background-color: #0a0f0d;
+  font-family: 'Courier New', Courier, monospace;
+  color: #00ff88;
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
 }
 
+/* Container */
 .container {
-  max-width: 700px;
+  background-color: #111;
+  padding: 30px;
+  border: 1px solid #00ff88;
+  border-radius: 12px;
+  box-shadow: 0 0 20px #00ff88aa;
   width: 90%;
-  padding: 40px;
-  background: rgba(13, 17, 23, 0.85);
-  border: 1px solid #21262d;
-  box-shadow: 0 0 30px rgba(0, 255, 255, 0.08);
-  border-radius: 16px;
-  backdrop-filter: blur(8px);
+  max-width: 700px;
   text-align: center;
 }
 
+/* Title */
 h1 {
-  font-family: 'Orbitron', sans-serif;
-  font-size: 2.2rem;
+  font-size: 2rem;
   margin-bottom: 20px;
-  color: #00ffff;
-  text-shadow: 0 0 5px #00ffff66;
+  text-shadow: 0 0 10px #00ff88;
+}
+
+/* Upload Form */
+form {
+  margin-bottom: 30px;
 }
 
 input[type="file"] {
-  padding: 12px;
-  background: #161b22;
-  border: 1px solid #30363d;
-  border-radius: 8px;
-  color: #c9d1d9;
+  border: 1px solid #00ff88;
+  padding: 10px;
+  background-color: #000;
+  color: #00ff88;
+  margin-bottom: 15px;
   width: 100%;
-  margin-bottom: 20px;
-  cursor: pointer;
-  transition: border 0.3s, background 0.3s;
-}
-
-input[type="file"]:hover {
-  border-color: #00ffff;
-  background: #0f131a;
 }
 
 button {
+  background-color: transparent;
+  color: #00ff88;
+  border: 1px solid #00ff88;
   padding: 10px 20px;
-  font-size: 1rem;
-  background: #00ffff22;
-  color: #00ffff;
-  border: 1px solid #00ffff66;
-  border-radius: 8px;
+  font-weight: bold;
   cursor: pointer;
-  transition: background 0.3s, transform 0.2s;
+  transition: 0.3s;
 }
 
 button:hover {
-  background: #00ffff44;
-  transform: scale(1.03);
+  background-color: #00ff88;
+  color: #000;
 }
 
-.file-list {
+/* Stats */
+.stats {
   margin-top: 20px;
+  font-size: 1.1rem;
   text-align: left;
-  background: #0d1117;
-  border: 1px dashed #2d333b;
-  padding: 20px;
-  border-radius: 8px;
-  font-family: monospace;
-  font-size: 0.95rem;
-  color: #58a6ff;
-  max-height: 200px;
-  overflow-y: auto;
 }
 
-.file-list::-webkit-scrollbar {
-  width: 6px;
+/* Dial and Progress */
+.dial-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 40px;
 }
 
-.file-list::-webkit-scrollbar-thumb {
-  background: #30363d;
-  border-radius: 10px;
+.dial-label {
+  margin-top: 10px;
+  font-size: 1rem;
+}
+
+.speed-dial {
+  width: 150px;
+  height: 150px;
+}
+
+/* Table of Files */
+table {
+  width: 100%;
+  margin-top: 30px;
+  border-collapse: collapse;
+  color: #00ff88;
+}
+
+th, td {
+  border: 1px solid #00ff88;
+  padding: 8px;
+  text-align: center;
+}
+
+th {
+  background-color: #111;
+  font-weight: bold;
+}
+
+tr:nth-child(even) {
+  background-color: #0f0f0f;
+}
+
+/* Link Styling */
+a {
+  color: #00ff88;
+  text-decoration: underline;
+}
+
+a:hover {
+  color: #007755;
+}
+
+/* Smooth transitions */
+button, input[type="file"], a {
+  transition: all 0.3s ease;
 }
