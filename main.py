@@ -1,48 +1,36 @@
-from flask import Flask, request, send_from_directory, render_template
-import os, time, threading
+from flask import Flask, render_template, request, redirect, send_from_directory
+import os
+from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
 UPLOAD_FOLDER = 'uploads'
-EXPIRY_SECONDS = 2 * 60 * 60
-
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 @app.route('/')
-def home():
+def index():
     return render_template('index.html')
 
 @app.route('/upload', methods=['POST'])
 def upload():
+    if 'file' not in request.files:
+        return redirect('/')
     file = request.files['file']
-    if file:
-        path = os.path.join(UPLOAD_FOLDER, file.filename)
-        file.save(path)
-        return f'{file.filename} uploaded successfully! <a href="/">Upload more</a>'
-    return 'Upload failed.'
+    if file.filename == '':
+        return redirect('/')
+    filename = secure_filename(file.filename)
+    filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+    file.save(filepath)
+    return redirect('/files')
 
 @app.route('/files')
-def list_files():
-    clean_expired_files()
-    files = os.listdir(UPLOAD_FOLDER)
-    return '<br>'.join([f'<a href="/download/{f}">{f}</a>' for f in files])
+def files():
+    files = os.listdir(app.config['UPLOAD_FOLDER'])
+    return render_template('files.html', files=files)
 
 @app.route('/download/<filename>')
 def download(filename):
-    return send_from_directory(UPLOAD_FOLDER, filename, as_attachment=True)
-
-def clean_expired_files():
-    now = time.time()
-    for fname in os.listdir(UPLOAD_FOLDER):
-        path = os.path.join(UPLOAD_FOLDER, fname)
-        if os.path.isfile(path) and now - os.path.getmtime(path) > EXPIRY_SECONDS:
-            os.remove(path)
-
-def cleaner_thread():
-    while True:
-        time.sleep(600)
-        clean_expired_files()
-
-threading.Thread(target=cleaner_thread, daemon=True).start()
+    return send_from_directory(app.config['UPLOAD_FOLDER'], filename, as_attachment=True)
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=8080)
+    app.run(debug=True)
