@@ -25,16 +25,12 @@ def upload():
         filename = secure_filename(file.filename)
         filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
         file.save(filepath)
-        return redirect(url_for('files'))
-
-@app.route('/files')
-def files():
-    file_list = os.listdir(app.config['UPLOAD_FOLDER'])
-    return render_template('files.html', files=file_list)
+        return redirect(url_for('index'))  # <--- redirect back home
 
 @app.route('/uploads/<filename>')
 def uploaded_file(filename):
     return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
+
 
 
 if __name__ == '__main__':
