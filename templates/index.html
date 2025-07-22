@@ -10,34 +10,43 @@
   <div class="container">
     <h1>StreamBin 🗑️</h1>
 
-    <!-- Display total storage used -->
-    <p style="color: #00ffe7; font-size: 1.2rem; margin-bottom: 1.5rem;">
-      Total storage used: {{ total_size }} MB
-    </p>
+    <!-- Left Panel: Upload + Storage Info -->
+    <div class="left-panel">
+      <div class="stats">
+        <p><strong>Total Storage Used:</strong> {{ total_size }} MB</p>
+      </div>
 
-    <!-- Upload Form -->
-    <form class="upload-box" action="/upload" method="post" enctype="multipart/form-data">
-      <label class="label-upload" for="file">📁 Drop or Choose Files</label>
-      <input type="file" name="file" id="file" onchange="this.form.submit();">
-    </form>
+      <!-- Upload Form -->
+      <form class="upload-box" action="/upload" method="post" enctype="multipart/form-data">
+        <label class="label-upload" for="file">📁 Drop or Choose Files</label>
+        <input type="file" name="file" id="file" onchange="this.form.submit();">
+      </form>
+    </div>
 
-    <!-- File List -->
-    <ul>
-      {% for file in files %}
-        <li><a href="{{ url_for('uploaded_file', filename=file) }}" download>{{ file }}</a></li>
+    <!-- Right Panel: Internet Speed Dial -->
+    <div class="right-panel">
+      <div class="dial-container">
+        <canvas id="speedometer" width="300" height="150"></canvas>
+        <p id="speed-text" class="dial-label">Checking speed...</p>
+      </div>
+    </div>
+
+    <!-- Full Width: Uploaded Files -->
+    <div class="files-section">
+      <h2>📂 Uploaded Files</h2>
+      {% if files %}
+        <ul>
+          {% for file in files %}
+            <li><a href="{{ url_for('uploaded_file', filename=file) }}" download>{{ file }}</a></li>
+          {% endfor %}
+        </ul>
       {% else %}
-        <li>No files uploaded yet.</li>
-      {% endfor %}
-    </ul>
-
-    <!-- Internet Speed Dial -->
-    <div style="margin-top: 3rem;">
-      <canvas id="speedometer" width="300" height="150"></canvas>
-      <p id="speed-text" style="color: #00ffe7; font-size: 1rem; margin-top: 0.5rem;">Checking speed...</p>
+        <p>No files uploaded yet.</p>
+      {% endif %}
     </div>
   </div>
 
-  <!-- Include Chart.js -->
+  <!-- Chart.js -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
   <script>
@@ -58,7 +67,7 @@
     }
 
     function updateDial(speed) {
-      const cappedSpeed = Math.min(speed, 100); // cap at 100 Mbps for visualization
+      const cappedSpeed = Math.min(speed, 100);
       if (!speedChart) {
         const ctx = document.getElementById('speedometer').getContext('2d');
         speedChart = new Chart(ctx, {
