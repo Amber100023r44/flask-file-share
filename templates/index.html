@@ -3,42 +3,59 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>FileDropX</title>
+  <title>File Drop</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap');
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Orbitron', sans-serif;
-    }
-
     body {
-      background: linear-gradient(135deg, #0f0f0f, #1a1a1a);
-      color: #f0f0f0;
-      min-height: 100vh;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #0f0f0f;
+      color: #00ffcc;
       display: flex;
-      justify-content: center;
+      flex-direction: column;
       align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
     }
-
-    .container {
-      background: rgba(30, 30, 30, 0.7);
-      border: 2px solid #0ff;
-      padding: 40px;
-      border-radius: 15px;
-      box-shadow: 0 0 20px #0ff;
-      text-align: center;
-      width: 90%;
-      max-width: 600px;
-    }
-
     h1 {
       font-size: 3rem;
-      color: #0ff;
-      margin-bottom: 30px;
-      text-shadow: 0 0 5px #0ff;
+      margin-bottom: 1rem;
+      text-shadow: 0 0 10px #00ffcc;
     }
-
     form {
+      background: #1a1a1a;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 0 20px #00ffcc88;
+    }
+    input[type="file"] {
+      font-size: 1rem;
+      color: #00ffcc;
+      margin-bottom: 1rem;
+    }
+    input[type="submit"] {
+      background: #00ffcc;
+      color: #0f0f0f;
+      border: none;
+      padding: 0.5rem 1rem;
+      font-size: 1.1rem;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    a {
+      margin-top: 1.5rem;
+      display: inline-block;
+      color: #00ffcc;
+      text-decoration: none;
+      font-size: 1.2rem;
+    }
+  </style>
+</head>
+<body>
+  <h1>File Drop</h1>
+  <form action="/upload" method="post" enctype="multipart/form-data">
+    <input type="file" name="file" required><br>
+    <input type="submit" value="Upload">
+  </form>
+  <a href="/files">📂 See All Files</a>
+</body>
+</html>
