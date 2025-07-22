@@ -1,19 +1,27 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>TechDrop - Secure File Sharing</title>
+  <title>StreamBin - Secure File Sharing</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
   <div class="container">
-    <h1>TechDrop 🚀</h1>
+    <h1>StreamBin 🚀</h1>
 
+    <!-- Display total storage used -->
+    <p style="color: #00ffe7; font-size: 1.2rem; margin-bottom: 1.5rem;">
+      Total storage used: {{ total_size }} MB
+    </p>
+
+    <!-- Upload Form -->
     <form class="upload-box" action="/upload" method="post" enctype="multipart/form-data">
       <label class="label-upload" for="file">📁 Drop or Choose Files</label>
       <input type="file" name="file" id="file" onchange="this.form.submit();">
     </form>
 
+    <!-- File List -->
     <ul>
       {% for file in files %}
         <li><a href="{{ url_for('uploaded_file', filename=file) }}" download>{{ file }}</a></li>
@@ -21,6 +29,66 @@
         <li>No files uploaded yet.</li>
       {% endfor %}
     </ul>
+
+    <!-- Internet Speed Dial -->
+    <div style="margin-top: 3rem;">
+      <canvas id="speedometer" width="300" height="150"></canvas>
+      <p id="speed-text" style="color: #00ffe7; font-size: 1rem; margin-top: 0.5rem;">Checking speed...</p>
+    </div>
   </div>
+
+  <!-- Include Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <script>
+    let speedChart;
+
+    async function measureSpeed() {
+      const startTime = performance.now();
+      const response = await fetch("https://via.placeholder.com/1000x1000.png");
+      const blob = await response.blob();
+      const endTime = performance.now();
+
+      const bits = blob.size * 8;
+      const duration = (endTime - startTime) / 1000;
+      const mbps = (bits / duration) / (1024 * 1024);
+
+      updateDial(mbps);
+      document.getElementById("speed-text").textContent = `Current Speed: ${mbps.toFixed(2)} Mbps`;
+    }
+
+    function updateDial(speed) {
+      const cappedSpeed = Math.min(speed, 100); // cap at 100 Mbps for visualization
+      if (!speedChart) {
+        const ctx = document.getElementById('speedometer').getContext('2d');
+        speedChart = new Chart(ctx, {
+          type: 'doughnut',
+          data: {
+            labels: ['Speed'],
+            datasets: [{
+              data: [cappedSpeed, 100 - cappedSpeed],
+              backgroundColor: ['#00ffe7', '#333'],
+              borderWidth: 0
+            }]
+          },
+          options: {
+            rotation: -90,
+            circumference: 180,
+            cutout: '80%',
+            plugins: {
+              tooltip: { enabled: false },
+              legend: { display: false }
+            }
+          }
+        });
+      } else {
+        speedChart.data.datasets[0].data = [cappedSpeed, 100 - cappedSpeed];
+        speedChart.update();
+      }
+    }
+
+    setInterval(measureSpeed, 10000);
+    measureSpeed();
+  </script>
 </body>
 </html>
