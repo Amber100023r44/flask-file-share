@@ -2,40 +2,50 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Uploaded Files</title>
+  <title>Your Files</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
   <style>
     body {
-      background-color: #0f0f0f;
-      color: #00ffcc;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      padding: 2rem;
+      font-family: 'Poppins', sans-serif;
+      background: #222;
+      color: #eee;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      flex-direction: column;
     }
-    h1 {
-      font-size: 2.5rem;
-      text-shadow: 0 0 10px #00ffcc;
-    }
-    ul {
-      list-style: none;
-      padding: 0;
-    }
-    li {
-      margin: 1rem 0;
+    .file-list {
+      background: #333;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+      width: 90%;
+      max-width: 600px;
     }
     a {
-      color: #00ffcc;
+      color: #00e5ff;
       text-decoration: none;
+      display: block;
+      margin: 10px 0;
+      word-wrap: break-word;
     }
     a:hover {
       text-decoration: underline;
     }
+    h2 {
+      margin-bottom: 20px;
+    }
   </style>
 </head>
 <body>
-  <h1>Available Downloads</h1>
-  <ul>
+  <div class="file-list">
+    <h2>Available Files</h2>
     {% for file in files %}
-      <li><a href="/download/{{ file }}">{{ file }}</a></li>
+      <a href="{{ url_for('uploaded_file', filename=file) }}">{{ file }}</a>
+    {% else %}
+      <p>No files yet.</p>
     {% endfor %}
-  </ul>
+  </div>
 </body>
 </html>
