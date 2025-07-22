@@ -12,7 +12,17 @@ if not os.path.exists(UPLOAD_FOLDER):
 @app.route('/')
 def index():
     file_list = os.listdir(app.config['UPLOAD_FOLDER'])
-    return render_template('index.html', files=file_list)
+
+    # Calculate total storage used
+    total_size = sum(
+        os.path.getsize(os.path.join(app.config['UPLOAD_FOLDER'], f))
+        for f in file_list
+    )
+    # Convert bytes to MB (rounded to 2 decimal places)
+    total_size_mb = round(total_size / (1024 * 1024), 2)
+
+    return render_template('index.html', files=file_list, total_size=total_size_mb)
+
 
 @app.route('/upload', methods=['POST'])
 def upload():
