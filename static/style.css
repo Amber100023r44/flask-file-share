@@ -1,4 +1,4 @@
-/* Global Reset */
+/* Reset and Base */
 * {
   margin: 0;
   padding: 0;
@@ -6,156 +6,134 @@
 }
 
 body {
-  background-color: #0a0f0d;
-  font-family: 'Courier New', Courier, monospace;
-  color: #00ff88;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
+  background-color: #121212;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #f1f1f1;
   padding: 40px;
 }
 
 /* Container */
 .container {
-  background-color: #111;
-  padding: 30px;
-  border: 1px solid #00ff88;
+  max-width: 1200px;
+  margin: auto;
+  background-color: #1e1e1e;
   border-radius: 12px;
-  box-shadow: 0 0 20px #00ff88aa;
-  width: 100%;
-  max-width: 1000px;
+  box-shadow: 0 0 30px rgba(0, 255, 255, 0.1);
+  padding: 40px;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 40px;
 }
 
-/* Left and Right Sections */
-.left-panel {
-  display: flex;
-  flex-direction: column;
-  gap: 25px;
-}
-
-.right-panel {
-  display: flex;
-  flex-direction: column;
-  gap: 25px;
-}
-
 /* Title */
 h1 {
-  font-size: 2rem;
-  text-shadow: 0 0 10px #00ff88;
-  margin-bottom: 10px;
   grid-column: span 2;
-  text-align: center;
+  font-size: 2.2rem;
+  color: #00e1ff;
+  margin-bottom: 30px;
+  border-bottom: 1px solid #2a2a2a;
+  padding-bottom: 10px;
 }
 
-/* Upload Form */
-form {
+/* Stats Panel */
+.left-panel .stats {
+  font-size: 1.1rem;
+  color: #ccc;
+  margin-bottom: 20px;
+}
+
+/* Upload */
+.upload-box {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 10px;
+}
+
+.label-upload {
+  font-weight: bold;
+  font-size: 1rem;
+  margin-bottom: 6px;
+  color: #00e1ff;
 }
 
 input[type="file"] {
-  border: 1px solid #00ff88;
-  padding: 10px;
-  background-color: #000;
-  color: #00ff88;
-  width: 100%;
-}
-
-button {
-  background-color: transparent;
-  color: #00ff88;
-  border: 1px solid #00ff88;
-  padding: 10px 20px;
-  font-weight: bold;
-  cursor: pointer;
-  width: fit-content;
-  transition: 0.3s;
-}
-
-button:hover {
-  background-color: #00ff88;
-  color: #000;
-}
-
-/* Stats */
-.stats {
+  background-color: #222;
+  color: #ccc;
+  padding: 12px;
+  border: 1px solid #555;
+  border-radius: 6px;
   font-size: 1rem;
-  background-color: #0f0f0f;
-  padding: 15px;
-  border: 1px dashed #00ff88;
 }
 
-/* Dial and Progress */
+input[type="file"]:hover {
+  border-color: #00e1ff;
+}
+
+/* Right Panel - Dial */
 .dial-container {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 }
 
-.speed-dial {
-  width: 150px;
-  height: 150px;
+#speedometer {
   margin-top: 10px;
 }
 
-.dial-label {
-  margin-top: 10px;
+#speed-text {
+  margin-top: 16px;
   font-size: 1rem;
+  color: #00e1ff;
 }
 
-/* File List Table */
+/* Uploaded Files */
 .files-section {
   grid-column: span 2;
+  margin-top: 40px;
 }
 
 .files-section h2 {
-  margin-top: 20px;
-  margin-bottom: 10px;
-  font-size: 1.2rem;
-  color: #00ff88;
-  border-bottom: 1px solid #00ff88;
+  font-size: 1.4rem;
+  margin-bottom: 15px;
+  color: #00e1ff;
+  border-bottom: 1px solid #2a2a2a;
   padding-bottom: 5px;
 }
 
-table {
-  width: 100%;
-  margin-top: 10px;
-  border-collapse: collapse;
-  color: #00ff88;
+.files-section ul {
+  list-style: none;
+  padding-left: 0;
 }
 
-th, td {
-  border: 1px solid #00ff88;
-  padding: 8px;
-  text-align: left;
+.files-section li {
+  padding: 10px 0;
+  border-bottom: 1px solid #333;
 }
 
-th {
-  background-color: #111;
-  font-weight: bold;
+.files-section li a {
+  color: #66ccff;
+  text-decoration: none;
+  font-weight: 500;
 }
 
-tr:nth-child(even) {
-  background-color: #0f0f0f;
-}
-
-/* Link Styling */
-a {
-  color: #00ff88;
+.files-section li a:hover {
   text-decoration: underline;
+  color: #00c6ff;
 }
 
-a:hover {
-  color: #007755;
-}
+/* Responsive Design */
+@media (max-width: 768px) {
+  .container {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
 
-/* Smooth Transitions */
-button, input[type="file"], a {
-  transition: all 0.3s ease;
+  h1 {
+    text-align: center;
+  }
+
+  .files-section {
+    margin-top: 20px;
+  }
 }
