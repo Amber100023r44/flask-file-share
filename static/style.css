@@ -1,129 +1,132 @@
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
 body {
-    font-family: 'Inter', sans-serif;
-    background-color: #f4f6f8;
-    color: #1a1a1a;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  background-color: #0f1117;
+  color: #f5f5f5;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.container {
-    background-color: #ffffff;
-    padding: 40px;
-    border-radius: 12px;
-    max-width: 600px;
-    width: 100%;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+.wrapper {
+  display: flex;
+  width: 90%;
+  max-width: 1100px;
+  height: 80vh;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 0 30px rgba(0, 255, 200, 0.2);
+  background: #1b1f2a;
 }
 
-header {
-    margin-bottom: 40px;
+.left-panel, .right-panel {
+  flex: 1;
+  padding: 40px;
+  box-sizing: border-box;
 }
 
-h1 {
-    font-size: 2rem;
-    font-weight: 600;
-    margin-bottom: 20px;
-    color: #111;
-    display: flex;
-    align-items: center;
-    gap: 10px;
+.left-panel {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: #111317;
 }
 
-form {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+.left-panel h1 {
+  font-size: 2.8rem;
+  margin-bottom: 10px;
+  color: #0fffc1;
+}
+
+.emoji {
+  font-size: 2rem;
+}
+
+.subtitle {
+  font-size: 1.1rem;
+  color: #ccc;
+  margin-bottom: 30px;
 }
 
 .file-label {
-    background-color: #eef1f4;
-    padding: 10px 16px;
-    border-radius: 6px;
-    border: 1px solid #ccc;
-    cursor: pointer;
-    font-weight: 500;
-    transition: background-color 0.2s ease;
-    text-align: center;
+  background-color: #0fffc1;
+  color: #000;
+  padding: 12px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  display: inline-block;
+  margin-bottom: 15px;
+  transition: background 0.3s ease;
 }
 
 .file-label:hover {
-    background-color: #e0e5ea;
+  background-color: #08d5aa;
 }
 
-input[type="file"] {
-    display: none;
+.file-preview {
+  margin-bottom: 20px;
+  color: #aaa;
+  font-size: 0.95rem;
+  font-style: italic;
 }
 
-.file-name {
-    font-size: 0.95rem;
-    color: #555;
-    font-style: italic;
-    margin-top: -5px;
+.upload-btn {
+  background-color: transparent;
+  border: 2px solid #0fffc1;
+  color: #0fffc1;
+  padding: 10px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
 }
 
-button {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    padding: 10px 16px;
-    border-radius: 6px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
+.upload-btn:hover {
+  background-color: #0fffc1;
+  color: #000;
 }
 
-button:hover {
-    background-color: #005ecf;
+.status-msg {
+  margin-top: 20px;
+  font-size: 0.95rem;
+  color: #57ffab;
 }
 
-.file-list-section h2 {
-    font-size: 1.25rem;
-    font-weight: 600;
-    color: #333;
-    margin-bottom: 8px;
+.right-panel {
+  background-color: #161920;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: #e0e0e0;
 }
 
-.total-size {
-    font-size: 0.95rem;
-    color: #777;
-    margin-bottom: 16px;
+.card {
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 16px;
+  padding: 30px;
+  box-shadow: 0 0 20px rgba(0, 255, 200, 0.05);
 }
 
-.file-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+.card h2 {
+  margin-top: 0;
+  color: #0fffc1;
 }
 
-.file-list li {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 0;
-    border-bottom: 1px solid #eee;
+.card ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 20px 0;
 }
 
-.file-list a {
-    color: #007bff;
-    text-decoration: none;
-    font-weight: 500;
-    word-break: break-word;
+.card ul li {
+  margin-bottom: 10px;
+  font-size: 1rem;
 }
 
-.file-list a:hover {
-    text-decoration: underline;
-}
-
-.file-size {
-    color: #555;
-    font-size: 0.9rem;
-    white-space: nowrap;
+.footnote {
+  font-size: 0.85rem;
+  color: #888;
+  margin-top: 20px;
 }
