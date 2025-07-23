@@ -104,3 +104,8 @@ body {
   min-width: 60px;
   text-align: right;
 }
+
+.file-link:hover {
+  color: #fff;
+  text-shadow: 0 0 5px #00ffff;
+}
