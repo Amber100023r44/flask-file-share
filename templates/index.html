@@ -2,35 +2,30 @@
 <html>
 <head>
   <title>TechDrop - Secure File Sharing</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-  <div class="main-grid">
+  <div class="container">
+    <h1>TechDrop 🚀</h1>
 
-    <div class="upload-box">
-      <h1 class="title">Upload a File</h1>
-      <form action="/upload" method="post" enctype="multipart/form-data">
-        <input type="file" name="file" class="file-input">
-        <button type="submit" class="upload-button">Upload</button>
-      </form>
-    </div>
+    <form method="POST" enctype="multipart/form-data" class="upload-form">
+      <input type="file" name="file">
+      <button type="submit">Upload</button>
+    </form>
 
-    <div class="files-box">
-      <h2 class="subtitle">Uploaded Files</h2>
-      <p class="total-size">Total Used: {{ total_size }} MB</p>
+    <div class="file-list-section">
+      <h2>Uploaded Files <span class="total-size">({{ total_size }} MB used)</span></h2>
       <ul class="file-list">
         {% for file in files %}
           <li>
-            <a href="{{ url_for('uploaded_file', filename=file) }}" class="file-link">{{ file }}</a>
+            <a href="{{ url_for('uploaded_file', filename=file.name) }}" class="file-link">{{ file.name }}</a>
             <span class="dots"></span>
-            <span class="file-size">
-              {{ (os.path.getsize('uploads/' + file) / (1024*1024) ) | round(2) }} MB
-            </span>
+            <span class="file-size">{{ file.size }} MB</span>
           </li>
         {% endfor %}
       </ul>
     </div>
-
   </div>
 </body>
 </html>
