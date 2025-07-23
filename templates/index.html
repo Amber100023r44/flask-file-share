@@ -2,15 +2,18 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>TechDrop - Secure File Sharing</title>
+  <title>StreamBin - Secure File Sharing</title>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
   <div class="container">
     <header>
-      <h1>StreamBin 🚀</h1>
+      <h1>StreamBin <span class="rocket">🗑️</span></h1>
       <form method="POST" enctype="multipart/form-data" action="/upload">
+        <label for="file" class="custom-file-upload">
+          Select File
+        </label>
         <input type="file" name="file" id="file" required>
         <button type="submit">Upload</button>
       </form>
@@ -18,7 +21,7 @@
 
     {% if files %}
     <section class="file-list-section">
-      <h2>Uploaded Files</h2>
+      <h2>📂 Uploaded Files</h2>
       <p class="total-size">Total Size: {{ total_size }} MB</p>
       <ul class="file-list">
         {% for file in files %}
