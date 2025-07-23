@@ -1,142 +1,105 @@
 body {
   margin: 0;
-  padding: 0;
-  font-family: 'Orbitron', monospace;
-  background-color: #000;
+  font-family: 'Share Tech Mono', monospace;
+  background-color: #0a0a0a;
   color: #00ffcc;
-  overflow-x: hidden;
-  position: relative;
 }
 
-header {
-  text-align: center;
-  margin-top: 40px;
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  height: 100vh;
+  gap: 2px;
 }
 
-.logo {
-  font-size: 3rem;
-  color: #00ffcc;
-  text-shadow: 0 0 10px #00ffcc, 0 0 20px #007777;
-  position: relative;
-}
-
-.glitch {
-  animation: glitch 1s infinite;
-  color: #ff00cc;
-}
-
-.tagline {
-  font-size: 1rem;
-  color: #007777;
-  margin-top: -10px;
-  letter-spacing: 2px;
-}
-
-@keyframes glitch {
-  0% { opacity: 1; transform: translate(0); }
-  20% { opacity: 0.8; transform: translate(-2px, 1px); }
-  40% { opacity: 1; transform: translate(2px, -1px); }
-  60% { opacity: 0.9; transform: translate(-1px, 1px); }
-  80% { opacity: 1; transform: translate(1px, -1px); }
-  100% { opacity: 1; transform: translate(0); }
-}
-
-.main-grid {
+/* Upload Panel */
+.upload-panel {
+  background: #111;
+  padding: 40px 30px;
   display: flex;
-  justify-content: space-around;
-  align-items: flex-start;
-  margin-top: 50px;
-  padding: 0 30px;
-  gap: 40px;
-  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: center;
+  border-right: 1px solid #00ffcc40;
 }
 
-.upload-box, .uploaded-files {
-  background: rgba(0, 255, 204, 0.05);
-  border: 1px solid #00ffcc;
-  border-radius: 10px;
-  padding: 30px;
-  width: 400px;
-  box-shadow: 0 0 20px rgba(0, 255, 204, 0.2);
+.upload-panel .title {
+  font-size: 2em;
+  color: #00ffcc;
+  margin-bottom: 30px;
 }
 
-.upload-box h2, .uploaded-files h2 {
+.upload-form label {
+  display: block;
+  margin-bottom: 10px;
+  color: #00ffcc;
+  font-weight: bold;
+}
+
+.upload-form input[type="file"] {
   margin-bottom: 20px;
-  font-size: 1.5rem;
-  border-bottom: 1px solid #00ffcc;
+  background: #0f0f0f;
+  color: #00ffcc;
+  border: 1px dashed #00ffcc90;
+  padding: 8px;
+  width: 100%;
+}
+
+.upload-form button {
+  background-color: #00ffcc;
+  border: none;
+  color: #000;
+  padding: 10px 20px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.upload-form button:hover {
+  background-color: #00bfa6;
+}
+
+.storage-info {
+  margin-top: 30px;
+  font-size: 1em;
+  color: #aaaaaa;
+}
+
+/* File List Panel */
+.file-list-panel {
+  background: #0f0f0f;
+  padding: 40px;
+  overflow-y: auto;
+}
+
+.file-list-panel h2 {
+  color: #00ffcc;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #00ffcc30;
   padding-bottom: 10px;
 }
 
-input[type="file"] {
-  background: #000;
-  border: 1px dashed #00ffcc;
-  padding: 10px;
-  color: #00ffcc;
-  width: 100%;
-  margin-bottom: 20px;
-}
-
-button {
-  background-color: #00ffcc;
-  color: #000;
-  border: none;
-  padding: 10px 20px;
-  font-weight: bold;
-  font-size: 1rem;
-  cursor: pointer;
-  border-radius: 5px;
-  width: 100%;
-  transition: 0.3s ease;
-}
-
-button:hover {
-  background-color: #000;
-  color: #00ffcc;
-  border: 1px solid #00ffcc;
-}
-
-ul {
+.file-list {
   list-style: none;
-  padding-left: 0;
+  padding: 0;
+  margin: 0;
 }
 
-li {
-  margin-bottom: 10px;
-  padding: 8px 12px;
-  background-color: rgba(0, 255, 204, 0.08);
-  border-left: 4px solid #00ffcc;
-  font-family: 'Courier New', Courier, monospace;
-  transition: 0.2s;
+.file-list li {
+  padding: 10px 0;
+  border-bottom: 1px dashed #00ffcc30;
 }
 
-li:hover {
-  background-color: rgba(0, 255, 204, 0.15);
-}
-
-a {
+.file-list li a {
   color: #00ffcc;
   text-decoration: none;
-  word-break: break-all;
 }
 
-a:hover {
-  color: #ffffff;
+.file-list li a:hover {
+  text-decoration: underline;
+  color: #00ffee;
 }
 
-/* Scanlines effect */
-.scanlines {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-  background: repeating-linear-gradient(
-    to bottom,
-    rgba(0, 255, 204, 0.03),
-    rgba(0, 255, 204, 0.03) 1px,
-    transparent 1px,
-    transparent 3px
-  );
-  pointer-events: none;
-  z-index: 9999;
+.no-files {
+  color: #777;
+  font-style: italic;
 }
