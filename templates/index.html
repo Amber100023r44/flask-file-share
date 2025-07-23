@@ -2,40 +2,51 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>StreamBin 🗑️</title>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet">
+  <title>StreamBin - Secure File Sharing</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-  <div class="main-container">
+  <div class="container">
     <header>
-      <h1>StreamBin 🗑️</h1>
-      <p class="tagline">Secure. Simple. Seamless File Transfer.</p>
+      <h1>StreamBin <span class="rocket">🗑️</span></h1>
+      <form method="POST" enctype="multipart/form-data" action="/">
+        <label for="file" class="custom-file-upload">
+          Select File
+        </label>
+        <input type="file" name="file" id="file" required>
+        <p id="selected-file" class="selected-file">No file chosen</p>
+        <button type="submit">Upload</button>
+      </form>
     </header>
 
-    <section class="upload-box">
-      <form method="POST" enctype="multipart/form-data">
-        <label for="file-upload" class="custom-file-input">
-          Select File
-          <input type="file" id="file-upload" name="file" required>
-        </label>
-        <div id="file-name-display">No file selected</div>
-        <button type="submit" class="upload-btn">Upload File</button>
-      </form>
+    {% if files %}
+    <section class="file-list-section">
+      <h2>📂 Uploaded Files</h2>
+      <p class="total-size">Total Size: {{ total_size }} MB</p>
+      <ul class="file-list">
+        {% for file in files %}
+        <li>
+          <a href="{{ url_for('uploaded_file', filename=file.name) }}">{{ file.name }}</a>
+          <span class="dots"></span>
+          <span class="file-size">{{ file.size }} MB</span>
+        </li>
+        {% endfor %}
+      </ul>
     </section>
-
-    <footer>
-      <p>&copy; 2025 StreamBin. Built with 🚀 and Flask.</p>
-    </footer>
+    {% endif %}
   </div>
 
   <script>
-    const fileInput = document.getElementById('file-upload');
-    const fileNameDisplay = document.getElementById('file-name-display');
+    const fileInput = document.getElementById('file');
+    const fileNameDisplay = document.getElementById('selected-file');
 
     fileInput.addEventListener('change', () => {
-      const fileName = fileInput.files[0]?.name || "No file selected";
-      fileNameDisplay.textContent = fileName;
+      if (fileInput.files.length > 0) {
+        fileNameDisplay.textContent = "Selected: " + fileInput.files[0].name;
+      } else {
+        fileNameDisplay.textContent = "No file chosen";
+      }
     });
   </script>
 </body>
