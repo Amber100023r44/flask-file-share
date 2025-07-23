@@ -2,33 +2,30 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>StreamBin - Secure File Sharing</title>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&display=swap" rel="stylesheet">
+  <title>StreamBin – Secure File Sharing</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
   <div class="container">
     <header>
-      <h1>StreamBin <span class="rocket">🗑️</span></h1>
+      <h1>StreamBin 🗑️</h1>
       <form method="POST" enctype="multipart/form-data" action="/">
-        <label for="file" class="custom-file-upload">
-          Select File
-        </label>
+        <label for="file" class="file-label">Choose a file</label>
         <input type="file" name="file" id="file" required>
-        <p id="selected-file" class="selected-file">No file chosen</p>
+        <div id="selected-file" class="file-name">No file chosen</div>
         <button type="submit">Upload</button>
       </form>
     </header>
 
     {% if files %}
     <section class="file-list-section">
-      <h2>📂 Uploaded Files</h2>
-      <p class="total-size">Total Size: {{ total_size }} MB</p>
+      <h2>Uploaded Files</h2>
+      <p class="total-size">Total: {{ total_size }} MB</p>
       <ul class="file-list">
         {% for file in files %}
         <li>
           <a href="{{ url_for('uploaded_file', filename=file.name) }}">{{ file.name }}</a>
-          <span class="dots"></span>
           <span class="file-size">{{ file.size }} MB</span>
         </li>
         {% endfor %}
@@ -43,7 +40,7 @@
 
     fileInput.addEventListener('change', () => {
       if (fileInput.files.length > 0) {
-        fileNameDisplay.textContent = "Selected: " + fileInput.files[0].name;
+        fileNameDisplay.textContent = fileInput.files[0].name;
       } else {
         fileNameDisplay.textContent = "No file chosen";
       }
