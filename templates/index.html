@@ -1,37 +1,40 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>STREAMBIN | Secure File Sharing</title>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <title>TechDrop - Secure File Sharing</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
 </head>
 <body>
-  <div class="scanlines"></div>
+  <div class="grid-container">
 
-  <header>
-    <h1 class="logo">STREAMBIN<span class="glitch">_</span></h1>
-    <p class="tagline">Encrypted Upload Node</p>
-  </header>
-
-  <main class="main-grid">
-    <!-- Left: Upload -->
-    <section class="upload-box">
-      <h2>Upload a File</h2>
-      <form method="POST" action="/" enctype="multipart/form-data">
-        <input type="file" name="file" required>
-        <button type="submit">UPLOAD</button>
+    <!-- Left: Upload Panel -->
+    <div class="upload-panel">
+      <h1 class="title">TechDrop 🚀</h1>
+      <form action="/upload" method="post" enctype="multipart/form-data" class="upload-form">
+        <label for="file">Choose file</label>
+        <input type="file" name="file" id="file" required>
+        <button type="submit">Upload</button>
       </form>
-    </section>
+      <div class="storage-info">
+        <span>Storage Used:</span>
+        <strong>{{ total_size }} MB</strong>
+      </div>
+    </div>
 
-    <!-- Right: Uploaded Files -->
-    <section class="uploaded-files">
-      <h2>Uploaded Files</h2>
-      <ul>
+    <!-- Right: File List -->
+    <div class="file-list-panel">
+      <h2>📂 Uploaded Files</h2>
+      <ul class="file-list">
         {% for file in files %}
-          <li><a href="{{ url_for('download', filename=file) }}" download>{{ file }}</a></li>
+          <li><a href="{{ url_for('uploaded_file', filename=file) }}" target="_blank">{{ file }}</a></li>
+        {% else %}
+          <li class="no-files">No files uploaded yet.</li>
         {% endfor %}
       </ul>
-    </section>
-  </main>
+    </div>
+
+  </div>
 </body>
 </html>
