@@ -1,31 +1,33 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>TechDrop - Secure File Sharing</title>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <meta charset="UTF-8">
+    <title>TechDrop</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-  <div class="container">
-    <h1>TechDrop 🚀</h1>
+    <div class="container">
+        <header>
+            <h1>TechDrop 🚀</h1>
+            <form action="{{ url_for('upload') }}" method="post" enctype="multipart/form-data">
+                <input type="file" name="file" id="file">
+                <button type="submit">Upload</button>
+            </form>
+        </header>
 
-    <form method="POST" enctype="multipart/form-data" class="upload-form">
-      <input type="file" name="file">
-      <button type="submit">Upload</button>
-    </form>
-
-    <div class="file-list-section">
-      <h2>Uploaded Files <span class="total-size">({{ total_size }} MB used)</span></h2>
-      <ul class="file-list">
-        {% for file in files %}
-          <li>
-            <a href="{{ url_for('uploaded_file', filename=file.name) }}" class="file-link">{{ file.name }}</a>
-            <span class="dots"></span>
-            <span class="file-size">{{ file.size }} MB</span>
-          </li>
-        {% endfor %}
-      </ul>
+        <section class="file-list-section">
+            <h2>Uploaded Files</h2>
+            <p class="total-size">Total Used: {{ total_size }} MB</p>
+            <ul class="file-list">
+                {% for file in files %}
+                <li>
+                    <a href="{{ url_for('uploaded_file', filename=file.name) }}" download>{{ file.name }}</a>
+                    <span class="dots"></span>
+                    <span class="file-size">{{ file.size }} MB</span>
+                </li>
+                {% endfor %}
+            </ul>
+        </section>
     </div>
-  </div>
 </body>
 </html>
