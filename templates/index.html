@@ -2,47 +2,52 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>StreamBin – Secure File Sharing</title>
+  <title>StreamBin 🗑️</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-  <div class="container">
-    <header>
-      <h1>StreamBin 🗑️</h1>
-      <form method="POST" enctype="multipart/form-data" action="/">
-        <label for="file" class="file-label">Choose a file</label>
-        <input type="file" name="file" id="file" required>
-        <div id="selected-file" class="file-name">No file chosen</div>
-        <button type="submit">Upload</button>
-      </form>
-    </header>
+  <div class="wrapper">
+    <div class="left-panel">
+      <h1>StreamBin <span class="emoji">🗑️</span></h1>
+      <p class="subtitle">Secure, seamless file sharing made simple.</p>
 
-    {% if files %}
-    <section class="file-list-section">
-      <h2>Uploaded Files</h2>
-      <p class="total-size">Total: {{ total_size }} MB</p>
-      <ul class="file-list">
-        {% for file in files %}
-        <li>
-          <a href="{{ url_for('uploaded_file', filename=file.name) }}">{{ file.name }}</a>
-          <span class="file-size">{{ file.size }} MB</span>
-        </li>
-        {% endfor %}
-      </ul>
-    </section>
-    {% endif %}
+      <form method="POST" action="/upload" enctype="multipart/form-data" id="uploadForm">
+        <label class="file-label">
+          <input type="file" name="file" id="fileInput" required hidden>
+          <span>Select File</span>
+        </label>
+
+        <div id="fileNamePreview" class="file-preview">No file chosen</div>
+
+        <button type="submit" class="upload-btn">Upload File</button>
+      </form>
+
+      <div id="statusMsg" class="status-msg"></div>
+    </div>
+
+    <div class="right-panel">
+      <div class="card">
+        <h2>Why StreamBin?</h2>
+        <ul>
+          <li>🔐 End-to-end secure uploads</li>
+          <li>⚡ Fast and reliable transfers</li>
+          <li>🎯 Minimal, focused UI</li>
+        </ul>
+        <p class="footnote">Powered by Python Flask backend.</p>
+      </div>
+    </div>
   </div>
 
   <script>
-    const fileInput = document.getElementById('file');
-    const fileNameDisplay = document.getElementById('selected-file');
+    const fileInput = document.getElementById('fileInput');
+    const fileNamePreview = document.getElementById('fileNamePreview');
 
-    fileInput.addEventListener('change', () => {
-      if (fileInput.files.length > 0) {
-        fileNameDisplay.textContent = fileInput.files[0].name;
+    fileInput.addEventListener('change', function () {
+      if (this.files.length > 0) {
+        fileNamePreview.textContent = this.files[0].name;
       } else {
-        fileNameDisplay.textContent = "No file chosen";
+        fileNamePreview.textContent = 'No file chosen';
       }
     });
   </script>
