@@ -3,52 +3,39 @@
 <head>
   <meta charset="UTF-8">
   <title>StreamBin 🗑️</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-  <div class="wrapper">
-    <div class="left-panel">
-      <h1>StreamBin <span class="emoji">🗑️</span></h1>
-      <p class="subtitle">Secure, seamless file sharing made simple.</p>
+  <div class="main-container">
+    <header>
+      <h1>StreamBin 🗑️</h1>
+      <p class="tagline">Secure. Simple. Seamless File Transfer.</p>
+    </header>
 
-      <form method="POST" action="/upload" enctype="multipart/form-data" id="uploadForm">
-        <label class="file-label">
-          <input type="file" name="file" id="fileInput" required hidden>
-          <span>Select File</span>
+    <section class="upload-box">
+      <form method="POST" enctype="multipart/form-data">
+        <label for="file-upload" class="custom-file-input">
+          Select File
+          <input type="file" id="file-upload" name="file" required>
         </label>
-
-        <div id="fileNamePreview" class="file-preview">No file chosen</div>
-
+        <div id="file-name-display">No file selected</div>
         <button type="submit" class="upload-btn">Upload File</button>
       </form>
+    </section>
 
-      <div id="statusMsg" class="status-msg"></div>
-    </div>
-
-    <div class="right-panel">
-      <div class="card">
-        <h2>Why StreamBin?</h2>
-        <ul>
-          <li>🔐 End-to-end secure uploads</li>
-          <li>⚡ Fast and reliable transfers</li>
-          <li>🎯 Minimal, focused UI</li>
-        </ul>
-        <p class="footnote">Powered by Python Flask backend.</p>
-      </div>
-    </div>
+    <footer>
+      <p>&copy; 2025 StreamBin. Built with 🚀 and Flask.</p>
+    </footer>
   </div>
 
   <script>
-    const fileInput = document.getElementById('fileInput');
-    const fileNamePreview = document.getElementById('fileNamePreview');
+    const fileInput = document.getElementById('file-upload');
+    const fileNameDisplay = document.getElementById('file-name-display');
 
-    fileInput.addEventListener('change', function () {
-      if (this.files.length > 0) {
-        fileNamePreview.textContent = this.files[0].name;
-      } else {
-        fileNamePreview.textContent = 'No file chosen';
-      }
+    fileInput.addEventListener('change', () => {
+      const fileName = fileInput.files[0]?.name || "No file selected";
+      fileNameDisplay.textContent = fileName;
     });
   </script>
 </body>
