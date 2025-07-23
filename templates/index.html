@@ -1,36 +1,32 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
   <title>TechDrop - Secure File Sharing</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
 </head>
 <body>
-  <div class="grid-container">
+  <div class="main-grid">
 
-    <!-- Left: Upload Panel -->
-    <div class="upload-panel">
-      <h1 class="title">TechDrop 🚀</h1>
-      <form action="/upload" method="post" enctype="multipart/form-data" class="upload-form">
-        <label for="file">Choose file</label>
-        <input type="file" name="file" id="file" required>
-        <button type="submit">Upload</button>
+    <div class="upload-box">
+      <h1 class="title">Upload a File</h1>
+      <form action="/upload" method="post" enctype="multipart/form-data">
+        <input type="file" name="file" class="file-input">
+        <button type="submit" class="upload-button">Upload</button>
       </form>
-      <div class="storage-info">
-        <span>Storage Used:</span>
-        <strong>{{ total_size }} MB</strong>
-      </div>
     </div>
 
-    <!-- Right: File List -->
-    <div class="file-list-panel">
-      <h2>📂 Uploaded Files</h2>
+    <div class="files-box">
+      <h2 class="subtitle">Uploaded Files</h2>
+      <p class="total-size">Total Used: {{ total_size }} MB</p>
       <ul class="file-list">
         {% for file in files %}
-          <li><a href="{{ url_for('uploaded_file', filename=file) }}" target="_blank">{{ file }}</a></li>
-        {% else %}
-          <li class="no-files">No files uploaded yet.</li>
+          <li>
+            <a href="{{ url_for('uploaded_file', filename=file) }}" class="file-link">{{ file }}</a>
+            <span class="dots"></span>
+            <span class="file-size">
+              {{ (os.path.getsize('uploads/' + file) / (1024*1024) ) | round(2) }} MB
+            </span>
+          </li>
         {% endfor %}
       </ul>
     </div>
