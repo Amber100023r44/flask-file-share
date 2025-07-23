@@ -10,11 +10,12 @@
   <div class="container">
     <header>
       <h1>StreamBin <span class="rocket">🗑️</span></h1>
-      <form method="POST" enctype="multipart/form-data" action="/upload">
+      <form method="POST" enctype="multipart/form-data" action="/">
         <label for="file" class="custom-file-upload">
           Select File
         </label>
         <input type="file" name="file" id="file" required>
+        <p id="selected-file" class="selected-file">No file chosen</p>
         <button type="submit">Upload</button>
       </form>
     </header>
@@ -35,5 +36,18 @@
     </section>
     {% endif %}
   </div>
+
+  <script>
+    const fileInput = document.getElementById('file');
+    const fileNameDisplay = document.getElementById('selected-file');
+
+    fileInput.addEventListener('change', () => {
+      if (fileInput.files.length > 0) {
+        fileNameDisplay.textContent = "Selected: " + fileInput.files[0].name;
+      } else {
+        fileNameDisplay.textContent = "No file chosen";
+      }
+    });
+  </script>
 </body>
 </html>
